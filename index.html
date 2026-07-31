@@ -419,33 +419,27 @@
       }))
     };
 
-    btn.disabled = true;
-    btn.textContent = 'Enviando...';
+    // Mostra a confirmação e limpa o formulário imediatamente,
+    // sem esperar a planilha responder.
+    statusEl.textContent = 'Pedido enviado! ✅';
+    statusEl.className = 'status';
+    form.reset();
+    Object.keys(state).forEach(k => {
+      state[k] = 0;
+      document.getElementById(`qty-${cssId(k)}`).textContent = 0;
+    });
+    document.getElementById('p-credito').checked = true;
+    updateReceipt();
 
-    try{
-      await fetch(GOOGLE_SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify(dados)
-      });
-
-      statusEl.textContent = 'Pedido enviado! ✅';
-      statusEl.className = 'status';
-      form.reset();
-      Object.keys(state).forEach(k => {
-        state[k] = 0;
-        document.getElementById(`qty-${cssId(k)}`).textContent = 0;
-      });
-      document.getElementById('p-credito').checked = true;
-      updateReceipt();
-    }catch(err){
-      statusEl.textContent = 'Erro ao enviar. Verifique a conexão.';
-      statusEl.className = 'status err';
-    }finally{
-      btn.disabled = false;
-      btn.textContent = 'Enviar pedido';
-    }
+    // Envia para a planilha em segundo plano (fire and forget).
+    fetch(GOOGLE_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(dados)
+    }).catch(err => {
+      console.error('Falha ao registrar o pedido na planilha:', err);
+    });
   });
 </script>
 </body>
