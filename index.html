@@ -252,7 +252,7 @@
   const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzYqpAgqa1Qfx92eSfL3APIV4BP3NjSVa3xF9GhDG6x3u7g5_b6IFO4-HmFJBKsdBk0/exec";
   // =================================================================================
 
-  const MENU = [
+ const MENU = [
     { categoria: "Açaí", itens: [
       { nome: "Açaí Maracujá 300ml", preco: 17 },
       { nome: "Açaí Maracujá 500ml", preco: 20 },
@@ -264,6 +264,11 @@
       { nome: "Açaí Nutella 500ml", preco: 25 },
       { nome: "Açaí Ovomaltine 300ml", preco: 20 },
       { nome: "Açaí Ovomaltine 500ml", preco: 22 },
+      
+    ]},
+    { categoria: "Guaraná", itens: [
+      { nome: "Pó de Guaraná 300ml", preco: 15 },
+      { nome: "Pó de Guaraná 500ml", preco: 20 },
     ]},
     { categoria: "Cuscuz", itens: [
       { nome: "Cuscuz calabresa c/ queijo e bacon", preco: 18 },
@@ -286,8 +291,7 @@
     ]},
   ];
 
-  const ICONS = { "Açaí":"🫐", "Cuscuz":"🌽", "Caldos":"🍲", "Refrigerantes":"🥤" };
-
+  const ICONS = { "Açaí":"🫐","Guaraná":"🧋", "Cuscuz":"🌽", "Caldos":"🍲", "Refrigerantes":"🥤" };
   const state = {}; // nome -> qty
 
   function fmt(v){ return `R$${v.toFixed(2).replace('.',',')}`; }
